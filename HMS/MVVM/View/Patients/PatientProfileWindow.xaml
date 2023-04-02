@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HMS.MVVM.View.Patients"
         xmlns:vm="clr-namespace:HMS.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="PatientProfileWindow" Height="450" Width="800"
+        Title="PatientProfileWindow" Height="700" Width="800"
         WindowStartupLocation="CenterScreen"
         >
     
@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Image Source="/Images/hosp.png" Width="100" Margin="10"/>
-            <TextBlock Text="Will Smith" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Naame}" HorizontalAlignment="Center"/>
             <StackPanel Margin="0 10 0 0" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                     <TextBlock Text="Age       : "/>
@@ -61,8 +61,8 @@
             </StackPanel>
             <!--Appointment List-->
             <TextBlock Text="Appointment List" Margin="0 10 0 0"/>
-            <Separator DockPanel.Dock="Top" Height="1" Background="#7e5fde"/>
-            <DataGrid ItemsSource="{Binding Appointments}"  AutoGenerateColumns="False" Margin="0 0 100 0">
+            <Separator DockPanel.Dock="Top" Height="1" Background="#7e5fde" Margin="0 5 0 10"/>
+            <DataGrid ItemsSource="{Binding Appointments}"  AutoGenerateColumns="False" Margin="0 0 100 0" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Appointment ID" Width="150"/>
                     <DataGridTextColumn Binding="{Binding AppointedDate}" Header="Appointment Date"  Width="150"/>
@@ -72,8 +72,8 @@
             <Button Content="Add Appointment" Style="{StaticResource pagingButton}" Margin="0 0 100 0"/>
             <!--Prescription List-->
             <TextBlock Text="Prescription List" Margin="0 5 0 0"/>
-            <Separator DockPanel.Dock="Top" Height="1" Background="#7e5fde"/>
-            <DataGrid ItemsSource="{Binding Prescriptions}"  AutoGenerateColumns="False" Margin="0 0 100 0">
+            <Separator DockPanel.Dock="Top" Height="3" Background="#7e5fde" Margin="0 5 0 10"/>
+            <DataGrid ItemsSource="{Binding Prescriptions}"  AutoGenerateColumns="False" Margin="0 0 100 0" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Prescription ID"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding PrescribedDate}" Header="Prescribed Date"  Width="*"/>
@@ -82,8 +82,16 @@
             <Button Content="Add Appointment" Style="{StaticResource pagingButton}" Margin="0 0 100 0"/>
             <!--Billing-->
             <TextBlock Text="Bill" Margin="0 5 0 0"/>
-            <Separator DockPanel.Dock="Top" Height="1" Background="#7e5fde"/>
-            
+            <Separator DockPanel.Dock="Top" Height="1" Background="#7e5fde" Margin="0 5 0 5"/>
+            <StackPanel Margin="0 0 0 0">
+                <TextBlock Text="{Binding DoctorFee}" Margin="0 5 0 0"/>
+                <TextBlock Text="{Binding TestFee}" Margin="0 5 0 0"/>
+                <Separator Margin="0 5 375 0"/>
+                <TextBlock Text="{Binding HospitalFee}" Margin="0 5 0 0"/>
+                <TextBlock Text="{Binding TotalFee}" Margin="0 5 0 0"/>
+                <Separator Margin="0 5 375 0"/>
+                <Separator Margin="0 5 375 0"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

@@ -13,6 +13,10 @@ namespace HMS.MVVM.ViewModel
 {
 	public partial class PatientProfileVM : ObservableObject
 	{
+
+		[ObservableProperty]
+		public string name;
+
 		[ObservableProperty]
 		public string age;
 
@@ -33,6 +37,19 @@ namespace HMS.MVVM.ViewModel
 
 		[ObservableProperty]
 		public string blood;
+
+		// Billing
+		[ObservableProperty]
+		public string doctorFee;
+
+		[ObservableProperty]
+		public string testFee;
+
+		[ObservableProperty]
+		public string hospitalFee;
+
+		[ObservableProperty]
+		public string totalFee;
 
 		//[ObservableProperty]
 		//public List<Appointment> appointments;
@@ -81,6 +98,9 @@ namespace HMS.MVVM.ViewModel
 				tmp.IsPatientSelected = false;
 				context.SaveChanges();
 
+				// name
+				name = tmp.FullName;
+
 				// age
 				string birthDateString = tmp.BirthDay;
 				DateTime birthDate = DateTime.ParseExact(birthDateString, "MM/dd/yyyy", null);
@@ -110,12 +130,43 @@ namespace HMS.MVVM.ViewModel
 				//blood
 				blood = tmp.BloodGroup;
 
-				var c1 = context.Appointments.Where(x => x.PatientId == tmp.Id).ToList();
-				if (c1 != null) c1.ForEach(y => { appointments.Add(y); });
+				var apps = context.Appointments.Where(x => x.PatientId == tmp.Id).ToList();
+				if (apps != null) apps.ForEach(y => { appointments.Add(y); });
 				else MessageBox.Show("This patient have no Appointments");
-				var c2 = context.Prescriptions.Where(x => x.PatientId == tmp.Id).ToList();
-				if (c2 != null) c2.ForEach(p => { prescriptions.Add(p); });
+				var prescs = context.Prescriptions.Where(x => x.PatientId == tmp.Id).ToList();
+				if (prescs != null) prescs.ForEach(p => { prescriptions.Add(p); });
 				else MessageBox.Show("This patient have no Prescriptions");
+
+				//Billing
+				double _docFee=0;
+				foreach(var app in apps)
+				{
+					_docFee += context.Doctors.Single(x => x.Id == app.DoctorId).Fee;
+				}
+				doctorFee = $"Doctor Fee             : LKR {_docFee}";
+				
+				double _testFee=0;
+				foreach (var presc in prescs)
+				{
+					//MessageBox.Show(presc.PrescribedDate.ToString());
+					foreach (var medTest in context.MedicalTests.Where(x => x.PrescriptionId == presc.Id))
+					{
+						//MessageBox.Show("medTest.Description");
+						_testFee += context.Tests.Single(x => x.Id == medTest.TestId).Fee;
+					}
+
+					//foreach (var medTest in context.MedicalTests)
+					//{
+					//	MessageBox.Show($"Med test pres id : {medTest.PrescriptionId}\nPresc Id : {presc.Id}");
+					//}
+
+				}
+				testFee = $"Test Fee                  : LKR {_testFee}";
+
+				hospitalFee = $"Hospital Fee (10%) : LKR {(_docFee+_testFee)*0.1}";
+
+				totalFee = $"Total Fee                 : LKR { _docFee + _testFee + (_docFee + _testFee) * 0.1}";
+
 			}
 		}
 	}

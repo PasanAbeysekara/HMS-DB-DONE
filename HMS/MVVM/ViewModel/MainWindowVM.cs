@@ -19,28 +19,28 @@ namespace HMS.MVVM.ViewModel
 		{
 			Random random = new Random();
 
-			// Create some dummy for bill data
+			//// Create some dummy for bill data
 			//using (var context = new DataContext())
 			//{
 			//	for (int i = 0; i < 4; i++)
 			//	{
-			//		// -----------DRUGS---------------
-
+			//		//		// -----------DRUGS---------------
+			//		foreach (var mT in context.Drugs) context.Drugs.Remove(mT);
 			//		string randomString1 = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz", 6).Select(s => s[random.Next(s.Length)]).ToArray());
 			//		string randomString2 = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz", 6).Select(s => s[random.Next(s.Length)]).ToArray());
 			//		Drug tmpDrug = new Drug { GenericName = randomString1, TradeName = randomString2 };
 			//		context.Drugs.Add(tmpDrug);
 
-			//		// -----------TESTS---------------
-
+			//		//		// -----------TESTS---------------
+			//		foreach (var mT in context.Tests) context.Tests.Remove(mT);
 			//		string randomString3 = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz", 6).Select(s => s[random.Next(s.Length)]).ToArray());
 			//		string randomString4 = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz", 20).Select(s => s[random.Next(s.Length)]).ToArray());
 			//		int randomFee = random.Next(1, 10) * 100;
 			//		Test tmptest = new Test { TestName = randomString3, Description = randomString4, Fee = randomFee };
 			//		context.Tests.Add(tmptest);
 
-			//		// -----------DOCTORS---------------
-
+			//		//		// -----------DOCTORS---------------
+			//		foreach (var mT in context.Doctors) context.Doctors.Remove(mT);
 			//		int randomFee2 = random.Next(1, 10) * 100;
 			//		string randomString5 = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz", 6).Select(s => s[random.Next(s.Length)]).ToArray());
 			//		Doctor tmpDoc = new Doctor { Name = "Dr. " + randomString5, Fee = randomFee2 };
@@ -49,8 +49,9 @@ namespace HMS.MVVM.ViewModel
 			//	}
 			//	context.SaveChanges();
 
-			//	// -----------PATIENTS---------------
-			//	for(int i = 0; i < 4; i++)
+			//	//	// -----------PATIENTS---------------
+			//	foreach (var mT in context.Patients) context.Patients.Remove(mT);
+			//	for (int i = 0; i < 4; i++)
 			//	{
 			//		var patient = new Patient
 			//		{
@@ -74,7 +75,8 @@ namespace HMS.MVVM.ViewModel
 			//	}
 			//	context.SaveChanges();
 
-			//	// -----------PRESCRIPTIONS---------------
+			//	//	// -----------PRESCRIPTIONS---------------
+			//	foreach (var mT in context.Prescriptions) context.Prescriptions.Remove(mT);
 			//	for (int i = 0; i < 4; i++)
 			//	{
 			//		var presc = new Prescription
@@ -87,7 +89,8 @@ namespace HMS.MVVM.ViewModel
 			//	context.SaveChanges();
 
 
-			//	// -----------APPOINTMENTS---------------
+			//	//	// -----------APPOINTMENTS---------------
+			//	foreach (var mT in context.Appointments) context.Appointments.Remove(mT);
 			//	for (int i = 0; i < 4; i++)
 			//	{
 			//		var app = new Appointment
@@ -100,7 +103,9 @@ namespace HMS.MVVM.ViewModel
 			//	}
 			//	context.SaveChanges();
 
-			//	// -----------BILL---------------
+			//	//	// -----------BILL---------------
+
+			//	foreach (var mT in context.Bills) context.Bills.Remove(mT);
 			//	for (int i = 0; i < 4; i++)
 			//	{
 			//		var bill = new Bill
@@ -115,7 +120,9 @@ namespace HMS.MVVM.ViewModel
 			//	}
 			//	context.SaveChanges();
 
-			//	// -----------MEDICAL_TESTS---------------
+			//	//	// -----------MEDICAL_TESTS---------------
+			//	foreach (var mT in context.MedicalTests) context.MedicalTests.Remove(mT);
+
 			//	for (int i = 0; i < 4; i++)
 			//	{
 			//		var mTest = new MedicalTest
@@ -129,6 +136,7 @@ namespace HMS.MVVM.ViewModel
 			//	context.SaveChanges();
 
 			//	// -----------DOSAGES---------------
+			//	foreach (var mT in context.Dosages) context.Dosages.Remove(mT);
 			//	for (int i = 0; i < 4; i++)
 			//	{
 			//		var _dosages = new Dosage
@@ -142,19 +150,19 @@ namespace HMS.MVVM.ViewModel
 			//		};
 			//		context.Dosages.Add(_dosages);
 			//	}
-			//	context.Savanges();
+			//	context.SaveChanges();
 
-			//}
+			//	//}
 
-			// Access a Bill object's related Patient details
-			//using (var context = new DataContext())
-			//{
-			//	var bill = context.Bills.Include(b => b.Patient).FirstOrDefault();
-			//	//Console.WriteLine("Bill Amount: {0}", bill.Amount);
-			//	//Console.WriteLine("Patient Name: {0}", bill.Patient.Name);
-			//	//Console.WriteLine("Patient Address: {0}", bill.Patient.Address);
-			//	//Console.WriteLine("Patient Phone: {0}", bill.Patient.Phone);
-			//	MessageBox.Show($"Bill Amount: {0} , Patient Name: {1}, Patient Address: {2}, Patient Phone: {3}", bill.BillAmount.ToString(), bill.Patient.FullName, bill.Patient.Address, bill.Patient.Phone);
+			//	// Access a Bill object's related Patient details
+			//	//using (var context = new DataContext())
+			//	//{
+			//	//	var bill = context.Bills.Include(b => b.Patient).FirstOrDefault();
+			//	//	//Console.WriteLine("Bill Amount: {0}", bill.Amount);
+			//	//	//Console.WriteLine("Patient Name: {0}", bill.Patient.Name);
+			//	//	//Console.WriteLine("Patient Address: {0}", bill.Patient.Address);
+			//	//	//Console.WriteLine("Patient Phone: {0}", bill.Patient.Phone);
+			//	//	MessageBox.Show($"Bill Amount: {0} , Patient Name: {1}, Patient Address: {2}, Patient Phone: {3}", bill.BillAmount.ToString(), bill.Patient.FullName, bill.Patient.Address, bill.Patient.Phone);
 			//}
 
 		}
