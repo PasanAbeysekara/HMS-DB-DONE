@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using HMS.MVVM.Model;
+using HMS.MVVM.View.Patients;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -80,7 +81,41 @@ namespace HMS.MVVM.ViewModel
 			Read();
 		}
 
-		// Delete patient command using prism core package
+		// Profile patient command using prism core package
+		private DelegateCommand<Patient> _profilePatientCommand;
+		public DelegateCommand<Patient> ProfilePrescriptionCommand =>
+			_profilePatientCommand ?? (_profilePatientCommand = new DelegateCommand<Patient>(ExecuteProfilePatientCommand));
+
+		void ExecuteProfilePatientCommand(Patient parameter)
+		{
+			//string deletedPatientName = "";
+			//using (DataContext context = new DataContext())
+			//{
+			//	Patient selectedPatient = parameter;
+			//	if (selectedPatient != null)
+			//	{
+			//		Patient pat = context.Patients.Single(x => x.Id == selectedPatient.Id);
+			//		deletedPatientName = pat.FullName;
+			//		context.Patients.Remove(pat);
+			//		context.SaveChanges();
+			//	}
+			//}
+			//MessageBox.Show($"Paitent '{deletedPatientName}' deleteed sucessfuly 😊 !");
+
+			using (DataContext context = new DataContext())
+			{
+				context.Patients.Single(x => x.Id == parameter.Id).IsPatientSelected= true;
+				context.SaveChanges();
+			}
+			var window = new PatientProfileWindow();
+			window.Show();
+
+			Read();
+		}
+
+
+
+		// Edit patient command using prism core package
 		private DelegateCommand<Patient> _editPatientCommand;
 		public DelegateCommand<Patient> EditPrescriptionCommand =>
 			_editPatientCommand ?? (_editPatientCommand = new DelegateCommand<Patient>(ExecuteEditPatientCommand));

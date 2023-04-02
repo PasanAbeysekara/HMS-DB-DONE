@@ -73,8 +73,15 @@ namespace HMS
 		{
 			WindowState = WindowState.Minimized;
 		}
-
 		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			var window = new MainWindow();
+			window.Show();
+			this.Close();
+		}
+
+
+		private void Button_Click_(object sender, RoutedEventArgs e)
 		{
 
 

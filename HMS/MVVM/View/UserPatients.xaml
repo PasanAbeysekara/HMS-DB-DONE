@@ -32,10 +32,10 @@
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Button Command="{Binding DataContext.EditPrescriptionCommand,ElementName=userPatients_window}" CommandParameter="{Binding}" Style="{StaticResource actionButton}">
+                            <Button Command="{Binding DataContext.ProfilePrescriptionCommand,ElementName=userPatients_window}" CommandParameter="{Binding}" Style="{StaticResource actionButton}">
                                 <icon:PackIconMaterial Kind="Account" Style="{StaticResource actionButtonIcon}"/>
                             </Button>
-                            <Button Command="{Binding DataContext.DeletePrescriptionCommand,ElementName=userPatients_window}" CommandParameter="{Binding}" Style="{StaticResource actionButton}">
+                            <Button Command="{Binding DataContext.EditPrescriptionCommand,ElementName=userPatients_window}" CommandParameter="{Binding}" Style="{StaticResource actionButton}">
                                 <icon:PackIconMaterial Kind="AccountEdit" Style="{StaticResource actionButtonIcon}"/>
                             </Button>
                             <Button Command="{Binding DataContext.DeletePrescriptionCommand,ElementName=userPatients_window}" CommandParameter="{Binding}" Style="{StaticResource actionButton}">
