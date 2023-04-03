@@ -21,8 +21,19 @@ namespace HMS
 		{
 			DataContext = new AddPatientWindowVM();
 			InitializeComponent();
+			Loaded += AddPatientWindow_Loaded;
 		}
 
+		private void AddPatientWindow_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (DataContext is ICloseWindows vm)
+			{
+				vm.Close += () =>
+				{
+					this.Close();
+				};
+			}
+		}
 
 		private void buttonSelectImage_Click(object sender, RoutedEventArgs e)
 		{

@@ -54,7 +54,7 @@ namespace HMS.MVVM.ViewModel
 
 		void ExecuteRefreshListCommand()
 		{
-			MessageBox.Show("You clicked refresh");
+			MessageBox.Show("Patient list has been refreshed 🔃");
 			Read();
 		}
 
@@ -77,13 +77,13 @@ namespace HMS.MVVM.ViewModel
 					context.SaveChanges();
 				}
 			}
-			MessageBox.Show($"Paitent '{deletedPatientName}' deleteed sucessfuly 😊 !");
+			MessageBox.Show($"Paitent '{deletedPatientName}' deleted sucessfuly 😊 !");
 			Read();
 		}
 
 		// Profile patient command using prism core package
 		private DelegateCommand<Patient> _profilePatientCommand;
-		public DelegateCommand<Patient> ProfilePrescriptionCommand =>
+		public DelegateCommand<Patient> ProfilePatientCommand =>
 			_profilePatientCommand ?? (_profilePatientCommand = new DelegateCommand<Patient>(ExecuteProfilePatientCommand));
 
 		void ExecuteProfilePatientCommand(Patient parameter)
@@ -117,7 +117,7 @@ namespace HMS.MVVM.ViewModel
 
 		// Edit patient command using prism core package
 		private DelegateCommand<Patient> _editPatientCommand;
-		public DelegateCommand<Patient> EditPrescriptionCommand =>
+		public DelegateCommand<Patient> EditPatientCommand =>
 			_editPatientCommand ?? (_editPatientCommand = new DelegateCommand<Patient>(ExecuteEditPatientCommand));
 
 		void ExecuteEditPatientCommand(Patient parameter)
@@ -140,10 +140,12 @@ namespace HMS.MVVM.ViewModel
 			{
 				context.Patients.Single(x => x.Id == parameter.Id).IsPatientSelected = true;
 				context.SaveChanges();
-				var pat_ = context.Patients.Single(x => x.IsPatientSelected == true);
-				MessageBox.Show($"{pat_.FullName} has clicked");
-				pat_.IsPatientSelected = false;
-				context.SaveChanges();
+				//var pat_ = context.Patients.Single(x => x.IsPatientSelected == true);
+				//MessageBox.Show($"{pat_.FullName} has clicked");
+				//pat_.IsPatientSelected = false;
+				//context.SaveChanges();
+				var window = new EditPatientWindow();
+				window.Show();
 			}
 
 			Read();

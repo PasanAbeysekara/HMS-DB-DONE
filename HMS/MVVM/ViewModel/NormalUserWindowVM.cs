@@ -20,6 +20,9 @@ namespace HMS.MVVM.ViewModel
 		// temp setter for maintainting current state
 		private object _currentView;
 
+		[ObservableProperty]
+		public string currentViewName;
+
 		public object CurrentView
 		{
 			get { return _currentView; }
@@ -35,30 +38,35 @@ namespace HMS.MVVM.ViewModel
 		{
 			U_Dashboard_VM = new UserDashboardVM();
 			CurrentView = U_Dashboard_VM;
+			CurrentViewName = "Dashboard";
 		}
 		[RelayCommand]
 		public void UserAppointmentsView()
 		{
 			U_Appointments_VM = new UserAppointmentsVM();
 			CurrentView = U_Appointments_VM;
+			CurrentViewName = "Appointments";
 		}
 		[RelayCommand]
 		public void UserBillingView()
 		{
 			U_Billing_VM = new UserBillingVM();
 			CurrentView = U_Billing_VM;
+			CurrentViewName = "Billings";
 		}
 		[RelayCommand]
 		public void UserPatientsView()
 		{
 			U_Patients_VM = new UserPatientsVM();
 			CurrentView = U_Patients_VM;
+			CurrentViewName = "Patients";
 		}
 		[RelayCommand]
 		public void UserPrescriptionsView()
 		{
 			U_Prescriptions_VM = new UserPrescriptionsVM();
 			CurrentView = U_Prescriptions_VM;
+			CurrentViewName = "Prescriptions";
 		}
 
 		public NormalUserWindowVM()
@@ -66,6 +74,7 @@ namespace HMS.MVVM.ViewModel
 
 			U_Dashboard_VM = new UserDashboardVM();
 			CurrentView = U_Dashboard_VM;
+			CurrentViewName = "Dashboard";
 
 		}
 

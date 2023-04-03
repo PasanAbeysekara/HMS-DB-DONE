@@ -43,15 +43,15 @@
                                 CornerRadius="100" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0">
                             <Ellipse>
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Images/hospital.png"/>
+                                    <ImageBrush ImageSource="/Images/hosp.png"/>
                                 </Ellipse.Fill>
                             </Ellipse>
                         </Border>
 
                         <!--Menu Titles-->
-                        <TextBlock Text="Linda Club" Foreground="White" FontSize="22" FontWeight="SemiBold"
+                        <TextBlock Text="City Hospital" Foreground="White" FontSize="22" FontWeight="SemiBold"
                                        DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10"/>
-                        <TextBlock Text="Member, France" Foreground="#d0bfff" FontSize="14" FontWeight="SemiBold"
+                        <TextBlock Text="Colombo, Sri Lanka" Foreground="#d0bfff" FontSize="14" FontWeight="SemiBold"
                                        DockPanel.Dock="Top" TextAlignment="Center"/>
 
                         <!--Menu Separator-->
@@ -73,7 +73,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}" Foreground="#ffffff" Command="{Binding UserAppointmentsViewCommand}">
+                            <Button Style="{StaticResource menuButton}" Command="{Binding UserAppointmentsViewCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <icon:PackIconMaterial Kind="CalendarClock" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Appointments"/>
@@ -140,7 +140,7 @@
                 </Button>
 
                 <!--Page Title-->
-                <TextBlock Text="Member" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
+                <TextBlock Text="{Binding CurrentViewName}" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
                            HorizontalAlignment="Left" Foreground="#121518">
                 </TextBlock>
 
@@ -148,7 +148,7 @@
                 <Button Style="{StaticResource addButton}" Click="AddMemberButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Margin="0 1 8 0" Height="11"/>
-                        <TextBlock Text="Add New Member"/>
+                        <TextBlock Text="Add New Patient"/>
                     </StackPanel>
                 </Button>
 

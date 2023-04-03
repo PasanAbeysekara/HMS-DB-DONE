@@ -13,6 +13,8 @@ namespace HMS.MVVM.ViewModel
 {
 	public partial class PatientProfileVM : ObservableObject
 	{
+		[ObservableProperty]
+		public string patId;
 
 		[ObservableProperty]
 		public string name;
@@ -28,6 +30,9 @@ namespace HMS.MVVM.ViewModel
 
 		[ObservableProperty]
 		public string address;
+
+		[ObservableProperty]
+		public string email;
 
 		[ObservableProperty]
 		public string weight;
@@ -98,12 +103,15 @@ namespace HMS.MVVM.ViewModel
 				tmp.IsPatientSelected = false;
 				context.SaveChanges();
 
+				// ID
+				patId = tmp.Id.ToString();
+
 				// name
 				name = tmp.FullName;
 
 				// age
 				string birthDateString = tmp.BirthDay;
-				DateTime birthDate = DateTime.ParseExact(birthDateString, "MM/dd/yyyy", null);
+				DateTime birthDate = DateTime.Parse(birthDateString);
 				DateTime today = DateTime.Today;
 				int _age = today.Year - birthDate.Year;
 				if (birthDate > today.AddYears(-_age))
@@ -117,6 +125,9 @@ namespace HMS.MVVM.ViewModel
 
 				//phone
 				phone = tmp.Phone;
+
+				//email
+				email = tmp.Email;
 
 				//address
 				address = tmp.Address;

@@ -1,9 +1,9 @@
-﻿<Window x:Class="HMS.AddPatientWindow"
+﻿<Window x:Class="HMS.MVVM.View.Patients.EditPatientWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HMS"
+        xmlns:local="clr-namespace:HMS.MVVM.View.Patients"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:uc="clr-namespace:HMS.MVVM.View.UserControls"
         xmlns:vm="clr-namespace:HMS.MVVM.ViewModel"
@@ -15,7 +15,7 @@
         AllowsTransparency="True">
 
     <Window.DataContext>
-        <vm:AddPatientWindowVM/>
+        <vm:EditPatientWindowVM/>
     </Window.DataContext>
 
     <Window.Resources>

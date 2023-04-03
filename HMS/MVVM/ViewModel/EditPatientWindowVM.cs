@@ -1,20 +1,18 @@
-﻿using Prism.Commands;
+﻿using HMS.MVVM.Model;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace HMS.MVVM.ViewModel
 {
-	interface ICloseWindows
-	{
-		Action Close { get; set; }
-	}
-	public class AddPatientWindowVM : INotifyPropertyChanged, ICloseWindows
+	public class EditPatientWindowVM : INotifyPropertyChanged, ICloseWindows
 	{
 		// #begin INotifyPropertyChanged Interface 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -56,7 +54,7 @@ namespace HMS.MVVM.ViewModel
 		private string _phone;
 
 		public string Phone { get { return _phone; } set { _phone = value; OnPropertyChanged(nameof(Phone)); } }
-		
+
 		private string _blood;
 
 		public string Blood { get { return _blood; } set { _blood = value; OnPropertyChanged(nameof(Blood)); } }
@@ -81,6 +79,13 @@ namespace HMS.MVVM.ViewModel
 
 		void ExecuteCloseCommand()
 		{
+			using (DataContext context = new DataContext())
+			{
+				var pat_ = context.Patients.Single(x => x.IsPatientSelected == true);
+				pat_.IsPatientSelected = false;
+				context.SaveChanges();
+			}
+
 			Close?.Invoke();
 		}
 
@@ -94,19 +99,63 @@ namespace HMS.MVVM.ViewModel
 		{
 			using (DataContext context = new DataContext())
 			{
-				context.Patients.Add(new Model.Patient { FullName = _fullName, Email = _email, BirthDay = _dateOfBirth.ToShortDateString(), Gender = _gender[0], Phone = _phone, BloodGroup = _blood, Address = _address, Weight = Double.Parse(_weight), Height = Double.Parse(_height) });
-				context.SaveChanges();
+				Patient tmp = context.Patients.Single(x => x.IsPatientSelected == true);
+				if (tmp != null)
+				{
+					//MessageBox.Show("Is selected true for selected student");
+					//context.Students.Remove(tmp);
+					//if (_firstName == null) _firstName = tmp.FirstName;
+					//if (_lastName == null)  _lastName = tmp.LastName;
+					//if (_gender == null) _gender = tmp.Gender.ToString();
+					//if (_imagei == null) _imagei = tmp.Image;
+					//if (_dateOfBirth == DateTime.ParseExact("2000-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture)) _dateOfBirth = DateTime.Parse(tmp.DateOfBirth);
+					//if (_gPA == null) _gPA = tmp.GPA.ToString();
+					//if (_email == null) _email= tmp.Email;
+					//tmp.IsSelected = false;
+					//context.Students.Add(new Student(_firstName, _lastName, _gender[0], _imagei, _dateOfBirth.ToShortDateString(), Convert.ToDouble(_gPA), _email));
+					tmp.FullName = _fullName;
+					tmp.Email = _email;
+					tmp.BirthDay = _dateOfBirth.ToShortDateString();
+					tmp.Gender = _gender[0];
+					tmp.Phone = _phone;
+					tmp.BloodGroup = _blood;
+					tmp.Address = _address;
+					tmp.Weight = Convert.ToDouble(_weight);
+					tmp.Height = Convert.ToDouble(_height);
+					tmp.IsPatientSelected = false;
+					context.SaveChanges();
+				}
+				else
+				{
+					MessageBox.Show("Please select a patient again");
+				}
 			}
-			MessageBox.Show("Refresh the student records to see the changes 😊");
+			MessageBox.Show("Refresh the patient records to see the changes 😊");
 			Close?.Invoke();
 		}
 
-		public AddPatientWindowVM()
+		public EditPatientWindowVM()
 		{
 			Genders = new List<string> { "Male", "Female" };
-			string dateString = "2000-01-01";
-			DateTime date = DateTime.ParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-			_dateOfBirth = date;
+			//string dateString = "2000-01-01";
+			//DateTime date = DateTime.ParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+			//_dateOfBirth = date;
+			using (DataContext context = new DataContext())
+			{
+				//context.Patients.Single(x => x.Id == parameter.Id).IsPatientSelected = true;
+				//context.SaveChanges();
+				Patient pat_ = context.Patients.Single(x => x.IsPatientSelected == true);
+				_fullName = pat_.FullName;
+				_email = pat_.Email;
+				_dateOfBirth = DateTime.Parse(pat_.BirthDay);
+				_gender = pat_.Gender.ToString();
+				_phone = pat_.Phone;
+				_blood = pat_.BloodGroup;
+				_address = pat_.Address;
+				_weight = pat_.Weight.ToString();
+				_height = pat_.Height.ToString();
+				
+			}
 		}
 
 	}
