@@ -44,8 +44,8 @@ namespace HMS
 
 			modelBuilder.Entity<MedicalTest>()
 				.HasOne(b => b.Test)
-				.WithOne(p => p.MedicalTest)
-				.HasForeignKey<MedicalTest>(b => b.TestId);
+				.WithMany(p => p.MedicalTests)
+				.HasForeignKey(a => a.TestId);
 
 			modelBuilder.Entity<Dosage>()
 				.HasOne(a => a.Prescription)

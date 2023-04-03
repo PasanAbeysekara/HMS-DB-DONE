@@ -12,11 +12,12 @@ namespace HMS.MVVM.Model.InsidePrescription
 	{
 		[Key]
 		public int Id { get; set; }
-		public string? TestName { get; set; }
-		public string? Description { get; set; }
+		public string TestName { get; set; }
+		public string Description { get; set; }
 		public double Fee { get; set; }
 
 		// Navigation property for the related Bill object
-		public virtual MedicalTest? MedicalTest { get; set; }
+		public virtual ICollection<MedicalTest> MedicalTests { get; set; }
 	}
+
 }
