@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\appointment.jpg" />
+    <None Remove="Images\appointment2.png" />
     <None Remove="Images\hosp.png" />
     <None Remove="Images\hospital.png" />
     <None Remove="Images\patient.png" />
+    <None Remove="Images\prescription.png" />
+    <None Remove="Images\prescription2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,9 +35,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\appointment.jpg" />
+    <Resource Include="Images\appointment2.png" />
     <Resource Include="Images\hosp.png" />
     <Resource Include="Images\hospital.png" />
     <Resource Include="Images\patient.png" />
+    <Resource Include="Images\prescription.png" />
+    <Resource Include="Images\prescription2.png" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using HMS.MVVM.Model;
+using HMS.MVVM.View.Appointments;
+using HMS.MVVM.View.Patients;
+using HMS.MVVM.View.Prescriptions;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,6 +64,38 @@ namespace HMS.MVVM.ViewModel
 		//[ObservableProperty]
 		//public List<Appointment> appointments;
 
+		private DelegateCommand _addPrescriptionCommand;
+		public DelegateCommand AddPrescriptionCommand =>
+			_addPrescriptionCommand ?? (_addPrescriptionCommand = new DelegateCommand(ExecuteAddPrescriptionCommand));
+
+		void ExecuteAddPrescriptionCommand()
+		{
+			using (DataContext context = new DataContext())
+			{
+				foreach (var pat_ in context.Patients) pat_.IsPatientSelected = false;
+				context.SaveChanges();
+				context.Patients.Single(x => x.Id == Convert.ToInt32(patId)).IsPatientSelected = true;
+				context.SaveChanges();
+				//Patient tt = context.Patients.Single(x => x.IsPatientSelected == true);
+				//MessageBox.Show($"patient {tt.FullName}");
+			}
+			var window = new AddPrescriptionWindow();
+			window.Show();
+
+		}
+
+		private DelegateCommand _addAppointmentCommand;
+		public DelegateCommand AddAppointmentCommand =>
+			_addAppointmentCommand ?? (_addAppointmentCommand = new DelegateCommand(ExecuteAddAppointmentCommand));
+
+		void ExecuteAddAppointmentCommand()
+		{
+			var window = new AddAppointmentWindow();
+			window.Show();
+
+		}
+
+
 		private ObservableCollection<Appointment> appointments = new ObservableCollection<Appointment>();
 
 
@@ -100,7 +137,7 @@ namespace HMS.MVVM.ViewModel
 			using (DataContext context = new DataContext())
 			{
 				Patient tmp = context.Patients.Single(x => x.IsPatientSelected == true);
-				tmp.IsPatientSelected = false;
+				foreach (var pat_ in context.Patients) pat_.IsPatientSelected = false;
 				context.SaveChanges();
 
 				// ID
@@ -149,14 +186,14 @@ namespace HMS.MVVM.ViewModel
 				else MessageBox.Show("This patient have no Prescriptions");
 
 				//Billing
-				double _docFee=0;
-				foreach(var app in apps)
+				double _docFee = 0;
+				foreach (var app in apps)
 				{
 					_docFee += context.Doctors.Single(x => x.Id == app.DoctorId).Fee;
 				}
 				doctorFee = $"Doctor Fee             : LKR {_docFee}";
-				
-				double _testFee=0;
+
+				double _testFee = 0;
 				foreach (var presc in prescs)
 				{
 					//MessageBox.Show(presc.PrescribedDate.ToString());
@@ -174,9 +211,9 @@ namespace HMS.MVVM.ViewModel
 				}
 				testFee = $"Test Fee                  : LKR {_testFee}";
 
-				hospitalFee = $"Hospital Fee (10%) : LKR {(_docFee+_testFee)*0.1}";
+				hospitalFee = $"Hospital Fee (10%) : LKR {(_docFee + _testFee) * 0.1}";
 
-				totalFee = $"Total Fee                 : LKR { _docFee + _testFee + (_docFee + _testFee) * 0.1}";
+				totalFee = $"Total Fee                 : LKR {_docFee + _testFee + (_docFee + _testFee) * 0.1}";
 
 			}
 		}

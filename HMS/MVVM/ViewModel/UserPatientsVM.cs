@@ -154,6 +154,11 @@ namespace HMS.MVVM.ViewModel
 
 		public UserPatientsVM()
 		{
+			using (DataContext context = new DataContext())
+			{
+				foreach (var pat_ in context.Patients) pat_.IsPatientSelected = false;
+				context.SaveChanges();
+			}
 
 			//for (int i = 0; i < 10; i++)
 			//{
