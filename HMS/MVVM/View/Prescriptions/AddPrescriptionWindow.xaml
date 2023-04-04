@@ -140,12 +140,20 @@
                     <fa:ImageAwesome Icon="AngleRight" Width="25" Height="25" Foreground="#ffd500" Margin="3 0 0 0"/>
 
                 </Button>
-                <Button Style="{StaticResource gridRemoveButton}" Command="{Binding DoneCommand}"  Margin="100 40 100 0">
-                    <StackPanel Orientation="Horizontal">
-                        <icon:PackIconMaterial Kind="Check" Margin="0 0 10 0"/>
-                        <TextBlock Text="Done"/>
-                    </StackPanel>
-                </Button>
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource gridRemoveButton}" Command="{Binding CancelCommand}"  Margin="50 40 30 0">
+                        <StackPanel Orientation="Horizontal">
+                            <icon:PackIconMaterial Kind="Cancel" Margin="0 0 10 0"/>
+                            <TextBlock Text="Cancel"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource gridDoneButton}" Command="{Binding DoneCommand}"  Margin="0 40 100 0">
+                        <StackPanel Orientation="Horizontal">
+                            <icon:PackIconMaterial Kind="Check" Margin="0 0 10 0"/>
+                            <TextBlock Text="Done"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </Border>
 
@@ -154,7 +162,7 @@
         <StackPanel Grid.Column="1">
             <Border  Padding="10" Background="#ffffff" MouseDown="Border_MouseDown" CornerRadius="0 25 25 0">
                 <StackPanel>
-                    <TextBlock Text="Prescription for Patient 'Upali'" Background="AliceBlue" TextAlignment="Center" FontWeight="SemiBold" FontSize="28" Foreground="#363636"/>
+                    <TextBlock Text="{Binding Caption}" Background="AliceBlue" TextAlignment="Center" FontWeight="SemiBold" FontSize="28" Foreground="#363636"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
                         <TextBlock Text="Prescribed Date" Style="{StaticResource text}" Margin="0 0 20 0"/>
                         <DatePicker Grid.Column="1" Grid.Row="2" SelectedDateFormat="Long" SelectedDate="{Binding PrescribedDate,Mode=TwoWay}" Style="{StaticResource datePicker}"/>
@@ -193,7 +201,7 @@
                             <ComboBox Grid.Column="1" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding DrugType}" ItemsSource="{Binding DrugTypes,Mode=OneWay}" Margin="0 4 0 4"/>
                             <ComboBox Grid.Column="1" Grid.Row="1" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding DrugName}" ItemsSource="{Binding DrugNames,Mode=OneWay}" Margin="0 4 0 4"/>
                             <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Text="{Binding Dose,UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 10"/>
-                            <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource TextBoxStyle}" Text="{Binding Duration,UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 10"/>
+                            <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource TextBoxStyle}" Text="{Binding Duration_,UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 10"/>
                             <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Text="{Binding Comments,UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 10"/>
 
                             <Button Grid.Column="1" Grid.Row="5" Content="Add" Margin="0 20 0 0" Style="{StaticResource buttonMainGreen}" Command="{Binding CreateDrugCommand}"/>
@@ -203,11 +211,11 @@
                         <DataGrid Grid.Column="1" ItemsSource="{Binding Dosages}"  AutoGenerateColumns="False" Margin="0 0 10 20"  IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Id}" Header="Ref" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding AppointedDate}" Header="Type" Width="70"/>
-                                <DataGridTextColumn Binding="{Binding DoctorId}" Header="Drug" Width="70"/>
-                                <DataGridTextColumn Binding="{Binding DoctorId}" Header="Dose" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding DoctorId}" Header="Duration" Width="60"/>
-                                <DataGridTextColumn Binding="{Binding DoctorId}" Header="Comments" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding DrugType}" Header="Type" Width="70"/>
+                                <DataGridTextColumn Binding="{Binding DrugId}" Header="Drug ID" Width="70"/>
+                                <DataGridTextColumn Binding="{Binding Dose}" Header="Dose" Width="50"/>
+                                <DataGridTextColumn Binding="{Binding Duration}" Header="Duration" Width="60"/>
+                                <DataGridTextColumn Binding="{Binding Comments}" Header="Comments" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -236,12 +244,12 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Text="Select Test" Style="{StaticResource text}" Margin="0 10 0 10"/>
-                            <TextBlock Grid.Row="1" Text="Descriptionn" Style="{StaticResource text}" Margin="0 10 0 10"/>
+                            <TextBlock Grid.Row="1" Text="Description" Style="{StaticResource text}" Margin="0 10 0 10"/>
 
                             <ComboBox Grid.Column="1" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding TestName}" ItemsSource="{Binding TestNames,Mode=OneWay}" Margin="0 4 0 4"/>
                             <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Text="{Binding TestDescription,UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 10"/>
 
-                            <Button Grid.Column="1" Grid.Row="5" Content="Add" Margin="0 20 0 0" Style="{StaticResource buttonMainGreen}" Command="{Binding CreateMedicalTestCommand}"/>
+                            <Button Grid.Column="1" Grid.Row="5" Content="Add" Margin="0 20 0 0" Style="{StaticResource buttonMainGreen}" Command="{Binding CreateTestCommand}"/>
 
 
 
@@ -249,8 +257,8 @@
                         <DataGrid Grid.Column="1" ItemsSource="{Binding MedicalTests}"  AutoGenerateColumns="False" Margin="0 0 10 0" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Id}" Header="Ref" Width="50"/>
-                                <DataGridTextColumn Binding="{Binding AppointedDate}" Header="Test" Width="120"/>
-                                <DataGridTextColumn Binding="{Binding DoctorId}" Header="Description" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding TestId}" Header="Test ID" Width="120"/>
+                                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

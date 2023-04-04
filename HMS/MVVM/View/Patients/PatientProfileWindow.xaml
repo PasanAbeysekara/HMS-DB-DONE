@@ -54,6 +54,7 @@
                     <TextBlock Text="{Binding Email}"/>
                 </StackPanel>
             </StackPanel>
+            <Button Content="Refresh" Margin="0 20 0 0" Width="100" Style="{StaticResource pagingButton}" Command="{Binding RefreshCommand}"/>
         </StackPanel>
 
         <!--Right Info-box-->

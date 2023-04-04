@@ -95,6 +95,25 @@ namespace HMS.MVVM.ViewModel
 
 		}
 
+		private DelegateCommand _refreshCommand;
+		public DelegateCommand RefreshCommand =>
+			_refreshCommand ?? (_refreshCommand = new DelegateCommand(ExecuteRefreshCommand));
+
+		void ExecuteRefreshCommand()
+		{
+			using (DataContext context = new DataContext())
+			{
+				appointments.Clear();
+				var apps = context.Appointments.Where(x => x.PatientId == Convert.ToInt32(patId)).ToList();
+				if (apps != null) apps.ForEach(y => { appointments.Add(y); });
+				else MessageBox.Show("This patient have no Appointments");
+				prescriptions.Clear();
+				var prescs = context.Prescriptions.Where(x => x.PatientId == Convert.ToInt32(patId)).ToList();
+				if (prescs != null) prescs.ForEach(p => { prescriptions.Add(p); });
+				else MessageBox.Show("This patient have no Prescriptions");
+			}
+		}
+
 
 		private ObservableCollection<Appointment> appointments = new ObservableCollection<Appointment>();
 
